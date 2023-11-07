@@ -1,0 +1,42 @@
+﻿@using JakubWiesniakLab3.Models;
+@model IEnumerable<CartItem>
+
+@{
+    ViewData["Title"] = "Koszyk";
+}
+
+<h1>Koszyk</h1>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nazwa</th>
+                <th>Cena</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Price</td>
+                    <td>
+                    <td>
+                        <form method="post" asp-controller="Cart" asp-action="DeleteItem">
+                            <input type="hidden" name="itemId" value="@item.Id" />
+                            <button type="submit" class="btn btn-outline-primary mx-2">-</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @Html.ActionLink("Zamów", "CreateOrder", "Cart", null, new {@class = "btn btn-primary"})
+}
+else
+{
+    <h5>Brak książek w koszyku</h5>
+}

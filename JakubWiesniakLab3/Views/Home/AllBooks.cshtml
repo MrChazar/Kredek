@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Book>
+
+@{
+    ViewData["Title"] = "Książki";
+}
+<h1>Dostępne książki</h1>
+<div id="main">
+    <table style="text-align: center">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nazwa</th>
+                <th>Cena</th>
+                <th>Zdjęcie</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var a in Model)
+            {
+                <tr>
+                    <td>@a.Id</td>
+
+                    <td>@a.Name</td>
+
+                    <td>@a.Price</td>
+
+                    <td><img src="~/images/@a.Image" style="height: 12rem; width: 9rem" class="rounded" /> </td>
+
+                    <td>@Html.ActionLink("Szczegóły", "BookDetails", new {id = @a.Id}) </td>
+
+                    <td>
+                        <form method="post" asp-controller="Cart" asp-action="AddItem">
+                            <input type="hidden" name="itemId" value="@a.Id" />
+                            <button type="submit" class="btn btn-outline-primary mx-2">Do koszyka</button>
+                        </form>
+                    </td>
+                </tr>   
+            }
+        </tbody>
+    </table>
+</div>
